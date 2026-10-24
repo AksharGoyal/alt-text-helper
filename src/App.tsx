@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ExternalLink } from './components/ExternalLink';
 import { ImagePicker } from './components/ImagePicker';
 import { ModelSelect } from './components/ModelSelect';
 import { Suggestion } from './components/Suggestion';
@@ -62,8 +63,20 @@ export const App = () => {
 
       <footer>
         <p>
-          Open source under the MIT license. Models run with Transformers.js and come from Hugging
-          Face. Built for Hacktoberfest Hack Day Ahmedabad.
+          Built for{' '}
+          <ExternalLink href="https://www.mlh.com/events/hacktoberfest-hack-day-ahmedabad-x-open-source-weekend">
+            Hacktoberfest Hack Day Ahmedabad
+          </ExternalLink>
+          , part of <ExternalLink href="https://hacktoberfest.com">Hacktoberfest</ExternalLink>.
+          Open source under the MIT license, with the{' '}
+          <ExternalLink href="https://github.com/AksharGoyal/alt-text-helper">
+            code on GitHub
+          </ExternalLink>
+          . Models run with{' '}
+          <ExternalLink href="https://huggingface.co/docs/transformers.js">
+            Transformers.js
+          </ExternalLink>{' '}
+          and come from Hugging Face.
         </p>
       </footer>
     </div>

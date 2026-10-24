@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import { MODELS } from '../lib/models';
+import { ExternalLink } from './ExternalLink';
 
 type ModelSelectProps = {
   value: string;
@@ -32,13 +33,7 @@ export const ModelSelect = ({ value, disabled, onChange }: ModelSelectProps) => 
         {selected && (
           <>
             {selected.description}{' '}
-            <a
-              href={`https://huggingface.co/${selected.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Model card
-            </a>
+            <ExternalLink href={`https://huggingface.co/${selected.id}`}>Model card</ExternalLink>
           </>
         )}
       </p>
