@@ -1,6 +1,10 @@
-import { pipeline, type ProgressInfo } from '@huggingface/transformers';
+import { env, pipeline, type ProgressInfo } from '@huggingface/transformers';
+import ortLoaderUrl from 'onnxruntime-web/ort-wasm-simd-threaded.asyncify.mjs?url';
+import ortWasmUrl from 'onnxruntime-web/ort-wasm-simd-threaded.asyncify.wasm?url';
 import { MAX_ALT_TEXT_OPTIONS, MIN_ALT_TEXT_OPTIONS, toAltTexts } from '../lib/altText';
 import type { WorkerRequest, WorkerResponse } from './messages';
+
+env.backends.onnx.wasm!.wasmPaths = { mjs: ortLoaderUrl, wasm: ortWasmUrl };
 
 type Download = { loaded: number; total: number };
 type Captioner = Awaited<ReturnType<typeof createCaptioner>>;
