@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { MAX_ALT_TEXT_OPTIONS, toAltText, toAltTexts } from './altText';
+import {
+  MAX_ALT_TEXT_OPTIONS,
+  stripMarkdown,
+  toAltText,
+  toAltTexts,
+  toFirstSentence,
+} from './altText';
 
 describe('toAltText', () => {
   it('capitalizes the first letter and ends with a period', () => {
@@ -21,6 +27,36 @@ describe('toAltText', () => {
   it('is idempotent', () => {
     const once = toAltText('a dog');
     expect(toAltText(once)).toBe(once);
+  });
+});
+
+describe('stripMarkdown', () => {
+  it('removes heading markers, dividers and bullets', () => {
+    expect(stripMarkdown('--- ### Image Description\n- A cat')).toBe('Image Description A cat');
+  });
+
+  it('keeps hyphens inside words', () => {
+    expect(stripMarkdown('a blue-tinted portrait')).toBe('a blue-tinted portrait');
+  });
+});
+
+describe('toFirstSentence', () => {
+  it('keeps only the first sentence', () => {
+    expect(toFirstSentence('A cat on a laptop. It looks serious.')).toBe('A cat on a laptop.');
+  });
+
+  it('returns text without terminal punctuation unchanged', () => {
+    expect(toFirstSentence('  A cat on a laptop  ')).toBe('A cat on a laptop');
+  });
+
+  it('does not split on a decimal point', () => {
+    expect(toFirstSentence('Pet store with 3.5 kg of food. Open daily.')).toBe(
+      'Pet store with 3.5 kg of food.',
+    );
+  });
+
+  it('stops at a question mark', () => {
+    expect(toFirstSentence('Is this a cat? Yes.')).toBe('Is this a cat?');
   });
 });
 
