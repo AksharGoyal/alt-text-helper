@@ -12,6 +12,18 @@ export const toAltText = (caption: string): string => {
   return /[.!?]$/.test(capitalized) ? capitalized : `${capitalized}.`;
 };
 
+export const stripMarkdown = (text: string): string =>
+  text
+    .replace(/(^|\s)[#*>-]+(?=\s|$)/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+export const toFirstSentence = (text: string): string => {
+  const trimmed = text.trim();
+  const end = trimmed.search(/[.!?](\s|$)/);
+  return end === -1 ? trimmed : trimmed.slice(0, end + 1);
+};
+
 export const toAltTexts = (captions: readonly string[]): string[] => {
   const unique = new Map<string, string>();
   for (const caption of captions) {
